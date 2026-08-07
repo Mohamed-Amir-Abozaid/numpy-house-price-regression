@@ -19,12 +19,19 @@ def impute_nan_with_mean(X):
         (N, F) float ndarray with no NaNs.
     """
     # TODO: Replace every NaN with that column's nan-aware mean...
-    nanrows,nancols = np.where(np.isnan(X))
-    impute = np.nanmean(X,axis=0)
-    X[nanrows,nancols] = impute[nancols]
-    X = np.where(np.isnan(X),0,X)
-    return X
-    #return np.where(np.isnan(X),np.nanmean(X,axis=0),X)
+
+    # normal method
+
+    # nanrows,nancols = np.where(np.isnan(X))
+    # impute = np.nanmean(X,axis=0)
+    # X[nanrows,nancols] = impute[nancols]
+    # X = np.where(np.isnan(X),0,X)
+    # return X
+
+    #spicy method (one line)
+
+    return np.where(np.isnan(np.where(np.isnan(X),np.nanmean(X,axis=0),X)) , 0 , np.where(np.isnan(X),np.nanmean(X,axis=0),X))
+
     pass
 
 # Step 2 - compute_iqr_bounds (not yet solved)
